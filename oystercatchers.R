@@ -20,18 +20,21 @@ summary(OC)
 library(ggplot2)
 p1 <- ggplot() +
   geom_boxplot(data=OC, aes(x = FeedingType, y = ShellLength)) +
-        xlab("Feeding type") +
-ylab("Shell length") +
-                     theme_classic()
+  xlab("Feeding type") +
+  ylab("Shell length") +
+  theme_classic()
+
 p1
+
 p2 <- ggplot() +
   geom_boxplot(data=OC, aes(x = Month, y = ShellLength)) +
   xlab("Month") +
-              ylab("Shell length") +
-theme_classic()
+  ylab("Shell length") +
+  theme_classic()
+
 p3 <- ggplot() +
   geom_boxplot(data=OC, aes(x = FeedingPlot, y = ShellLength)) +
-                                             xlab("Feeding plot") +
+  xlab("Feeding plot") +
   ylab("Shell length") +
   theme_classic()
 
@@ -81,8 +84,10 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
   }
 }
 
+#Using multiplot ####
 multiplot(p1, p2, p3, cols=2)
 
+#Table summary
 table(OC$Month)
 table(OC$FeedingPlot)
 table(OC$FeedingType)
@@ -166,3 +171,9 @@ p
 
 # Three-way plot
 table(OC$Month, OC$FeedingPlot, OC$FeedingType)
+
+#Remember though that the 3 way model was useless
+#So repeat this without the 3-way interaction...
+#Model without 3-way
+M2 <- update(M1, . ~ . -Month:FeedingPlot:FeedingType)
+summary(M2)
