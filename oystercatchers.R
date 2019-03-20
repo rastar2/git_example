@@ -11,7 +11,7 @@ library(readr)
 OC <- read_tsv("data/OystercatcherData.txt")
 summary(OC)
 
-# Set the Month, FeedingType and FeedingPlot as factors
+# Set the Month, FeedingType and FeedingPlot as factors ####
 OC$Month <- as.factor(OC$Month)
 OC$FeedingType <- as.factor(OC$FeedingType)
 OC$FeedingPlot <- as.factor(OC$FeedingPlot)
@@ -35,7 +35,7 @@ p3 <- ggplot() +
   ylab("Shell length") +
   theme_classic()
 
-# Multiple plot function
+# Multiple plot function ####
 #
 # ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
 # - cols:   Number of columns in layout
@@ -93,7 +93,7 @@ print(summary(M1), digits = 2)
 drop1(M1, test = "F")
 
 
-E1 <- rstandard(M1) # Extract standardised residuals
+E1 <- rstandard(M1) # Extract standardised residuals ####
 p1r <- ggplot(data=OC, aes(x=FeedingType, y=E1)) +
   geom_boxplot() +
   geom_hline(aes(yintercept=0), linetype="dashed") +
@@ -108,7 +108,7 @@ MyData <- expand.grid(
 MyData
 
 
-#Do the actual prediction
+#Do the actual prediction ####
 P1 <- predict(M1, newdata = MyData, se = TRUE)                      
 
 #Add the predicted values
@@ -129,7 +129,7 @@ MyData %>%
   theme_classic()
 
 
-# Set out basic structure of plot
+# Set out basic structure of plot ####
 p <- ggplot()
 p <- p + xlab("Feeding type") + ylab("Shell length")
 p <- p + theme(text = element_text(size=15)) + theme_bw()
